@@ -32,32 +32,34 @@ geo-processor/
 
 
 * **FastAPI:** validación con Pydantic y cálculo usando funciones nativas (`min`, `max`, `sum`).
+* **FastAPI structure:** For the FastAPI I chose a lightweight layered architecture (routers, schemas, services). It keeps the code simple and testable, while allowing an easy transition to full Clean Architecture if the project scales.
+
+📦fastapi
+ ┣ 📂app
+ ┃ ┣ 📂routers
+ ┃ ┣ 📂schemas
+ ┃ ┣ 📂services
+ ┃ ┗ 📜main.py
+ ┗ 📂tests
+
+* **FastAPI: Factory and Strategy patterns** To allow the code to integrate new centroid computation strategies when needed, the Strategy Pattern is implemented in the centroid_strategies.py file. To properly orchestrate this, the centroid_factory.py file was added, which handles the registration of new strategies and uses the Factory Pattern to retrieve the requested strategy.
+
+With this approach, adding new calculation strategies only requires creating a new file in the services folder with the implementation, without modifying the existing, working code.
+
 * **NestJS:** validación adicional y caching de respuestas.
 * **Next.js:** simplicidad en la construcción del frontend y visualización de mapas.
 * **Arquitectura:** separación de servicios para escalabilidad y mantenibilidad.
 
 ---
 
-## 🗂️ Estructura del Proyecto
-Explico si opté por **monorepo** o repos separados y la razón:
 
 
+## Prerequisites
+Make sure you have installed:
 
-root/
-├── geo-processor-python/   # Servicio FastAPI
-├── geo-processor-nestjs/   # API Gateway NestJS
-└── geo-processor-nextjs/   # Frontend Next.js
-
-
-
-
-
-## ⚙️ Requisitos Previos
-Asegúrate de tener instalado:
-- [Python 3.11+](https://www.python.org/downloads/)
-- [Node.js 18+](https://nodejs.org/)
+- [Python 3.11+]
 - [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
-- [Docker](https://www.docker.com/) *(opcional para despliegue)*
+- [Docker]
 
 
 
