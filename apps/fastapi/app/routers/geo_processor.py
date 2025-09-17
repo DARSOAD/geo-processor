@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Query
-from schemas.coordinates import CoordinatesInput, GeoOutput
-from services.geo_processor import compute_data
+from app.schemas.coordinates import CoordinatesInput, GeoOutput
+from app.services.geo_processor import compute_data
 
 router = APIRouter()
 

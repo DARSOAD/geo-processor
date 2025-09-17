@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from routers import geo_processor
+from app.routers import geo_processor
 from fastapi.exceptions import RequestValidationError
-from errors import validation_exception_handler
-import services.centroid_strategies
+from app.errors import validation_exception_handler
+import app.services.centroid_strategies
 
 app = FastAPI()
 

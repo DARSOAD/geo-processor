@@ -1,0 +1,15 @@
+# Enviorments
+.venv/
+app/.venv/
+
+# Caches
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# VCS
+.git/
+.gitignore
+
+# Just runtiem
+tests/

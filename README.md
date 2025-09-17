@@ -11,27 +11,33 @@ Includes:
 - **NestJS:** API that validates, forwards requests, and caches results.
 - **Next.js:** Frontend for entering coordinates and visualizing results on a map.
 
+### How to run
+In the project root, run
+```bash
+docker build -t geo-processor .
+```
+
 
 ## Technical Decisions
 
 * **MonoRepo** This project is being developed by a single developer, so a MonoRepo is sufficient and helps reduce local friction with Docker, README, and other files.
+
 * ## Project structure
 
-geo-processor/
-  apps/
-    fastapi/      # Python 
-    nestjs/       # Gateway + caché
-    nextjs/       # Frontend
-  infra/
-    docker-compose.yml
-  .github/workflows/
-    ci-fastapi.yml
-    ci-nestjs.yml
-    ci-nextjs.yml
-  README.md
+📦geo-processor
+ ┣ 📂apps
+ ┃ ┣ 📂fastapi
+ ┃ ┣ 📂nestjs
+ ┃ ┗ 📂nextjs
+ ┣ 📜 docker-compose.yml
+ ┗ 📜 README.md
 
 
-* **FastAPI:** validación con Pydantic y cálculo usando funciones nativas (`min`, `max`, `sum`).
+
+
+* ## **FastAPI:** #######
+
+
 * **FastAPI structure:** For the FastAPI I chose a lightweight layered architecture (routers, schemas, services). It keeps the code simple and testable, while allowing an easy transition to full Clean Architecture if the project scales.
 
 📦fastapi
@@ -39,16 +45,30 @@ geo-processor/
  ┃ ┣ 📂routers
  ┃ ┣ 📂schemas
  ┃ ┣ 📂services
+ ┃ ┣ 📂tests
+ ┃ ┣ 📜errors.py
  ┃ ┗ 📜main.py
- ┗ 📂tests
+ ┗ 📜Dockerfile
 
-* **FastAPI: Factory and Strategy patterns** To allow the code to integrate new centroid computation strategies when needed, the Strategy Pattern is implemented in the centroid_strategies.py file. To properly orchestrate this, the centroid_factory.py file was added, which handles the registration of new strategies and uses the Factory Pattern to retrieve the requested strategy.
+* **FastAPI: Factory and Strategy patterns** 
+  To allow the code to integrate new centroid computation strategies when needed, the Strategy Pattern is implemented in the centroid_strategies.py file. To properly orchestrate this, the centroid_factory.py file was added, which handles the registration of new strategies and uses the Factory Pattern to retrieve the requested strategy.
 
-With this approach, adding new calculation strategies only requires creating a new file in the services folder with the implementation, without modifying the existing, working code.
+  With this approach, adding new calculation strategies only requires creating a new file in the services folder with the implementation, without modifying the existing, working code.
 
-* **NestJS:** validación adicional y caching de respuestas.
+  * **FastAPI:  Run tests**
+  "...\geo-processor\apps\fastapi"
+```bash
+  . .venv/Scripts/Activate.ps1   # Windows (PowerShell) | source .venv/bin/activate   # Linux/Mac
+  pip install -r requirements-dev.txt
+  pytest -v
+```
+
+* ## **NestJS:** #######
+
+
+
+
 * **Next.js:** simplicidad en la construcción del frontend y visualización de mapas.
-* **Arquitectura:** separación de servicios para escalabilidad y mantenibilidad.
 
 ---
 

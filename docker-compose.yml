@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  fastapi:
+    build:
+      context: ./apps/fastapi
+      dockerfile: Dockerfile
+    container_name: geo-fastapi
+    ports:
+      - "8000:8000"
+    # Healthcheck 
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5

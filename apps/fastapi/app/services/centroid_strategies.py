@@ -1,5 +1,5 @@
 from typing import Protocol, Sequence
-from schemas.coordinates import Point
+from app.schemas.coordinates import Point
 from .centroid_factory import register_strategy, CentroidStrategy
 
 

@@ -1,4 +1,4 @@
-from schemas.coordinates import CoordinatesInput,GeoOutput
+from app.schemas.coordinates import CoordinatesInput,GeoOutput
 from .centroid_factory import get_strategy
 
 

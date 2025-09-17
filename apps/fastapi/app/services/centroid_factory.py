@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Dict, Type, Callable, Protocol, Sequence
-from schemas.coordinates import Point
+from app.schemas.coordinates import Point
 
 class CentroidStrategy(Protocol):
     def compute(self, points: Sequence[Point]) -> Point: ...
