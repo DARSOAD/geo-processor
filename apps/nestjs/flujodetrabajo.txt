@@ -1,0 +1,25 @@
+8) Flujo de alto nivel (dos casos)
+
+A) Cache miss
+
+FE → Nest (POST /api/python/process body=points)
+
+Nest valida DTO
+
+Nest calcula cache-key y hace GET cache → miss
+
+Nest forward a FastAPI → recibe {lat,lng}
+
+Nest guarda en cache (SET key = {lat,lng} TTL)
+
+Nest responde 200 { fromCache: false, lat, lng }
+
+B) Cache hit
+
+FE → Nest (mismo body)
+
+Validación ok
+
+GET cache → hit
+
+Nest responde 200 { fromCache: true, lat, lng }
