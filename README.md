@@ -16,7 +16,13 @@ In the project root, run
 ```bash
 docker build -t geo-processor .
 ```
+## Prerequisites
+Make sure you have installed:
 
+- [Docker] >= 20.x
+- [Docker Compose] >= v2 (comes bundled with Docker Desktop)
+
+(No need to install Node.js or Python locally — everything runs inside Docker.)
 
 ## Technical Decisions
 
@@ -111,27 +117,10 @@ docker build -t geo-processor .
 
 ---
 
-
-
-## Prerequisites
-Make sure you have installed:
-
-- [Python 3.11+]
-- [npm](https://www.npmjs.com/) o [yarn](https://yarnpkg.com/)
-- [Docker]
-
-
-
-
-
-
-
----
-
 ## Autor
 
 **Diego Andrés Rodríguez Ramírez**
-Full-Stack Developer – Python | React | AWS
+Electronic Engineer, Full-Stack Developer – Python | React | AWS
 
 ```
 

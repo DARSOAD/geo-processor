@@ -27,3 +27,23 @@ services:
       - PYTHON_BASE_URL=http://fastapi:8000
     depends_on:
       - fastapi
+
+  nextjs:
+    build:
+      context: ./apps/nextjs
+      dockerfile: Dockerfile
+      args:
+        - API_BASE_URL=http://nestjs:3000     
+    container_name: geo-nextjs
+    ports:
+      - "3030:3000"
+    environment:
+      - NODE_ENV=production
+      - API_BASE_URL=http://nestjs:3000       
+      - NEXT_PUBLIC_API_BASE_URL=http://nestjs:3000  
+      - NESTJS_INTERNAL_URL=http://nestjs:3000    
+      - PORT=3000  
+      - HOSTNAME=0.0.0.0   
+    depends_on:
+      nestjs:
+        condition: service_started
