@@ -68,9 +68,6 @@ docker build -t geo-processor .
 * **NestJS structure:** For the NestJS, I chose a Tiny Gateway since it fits the requirements of the test exactly. Nothing else needs to be added—it’s a lightweight proxy, and I followed the YAGNI principle.
 
 📦src
- ┣ 📂common
- ┃ ┗📂filters
- ┃   ┗ 📜http-exception.filter.ts
  ┣ 📂python-proxy
  ┃ ┣ 📂dto
  ┃ ┃ ┗ 📜process.request.dto.ts
@@ -84,6 +81,15 @@ docker build -t geo-processor .
  ┣ 📜app.service.ts
  ┗ 📜main.ts
 
+  I implemented an in-memory caching mechanism with clear HIT, MISS, and REFRESH behaviors, ensuring efficient request handling. To maintain data integrity, every input contract is validated before being forwarded to the Python service. End-to-end tests were built using Supertest to verify the full cache lifecycle (MISS, HIT, and REFRESH) and to confirm that invalid payloads correctly return a 400 Bad Request. Finally, I ensured that all responses consistently include the centroid, bounds, and cache metadata for reliable client consumption.
+
+  * **Nest:  Run tests**
+  To run the test, execute the following command in the given directory:
+
+  apps\nestjs> 
+```bash
+  npm run test:e2e
+```
 
 * **Next.js:** simplicidad en la construcción del frontend y visualización de mapas.
 

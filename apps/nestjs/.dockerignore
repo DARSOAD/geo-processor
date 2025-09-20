@@ -1,0 +1,19 @@
+# Node / tooling
+node_modules
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+
+# Build / tests / coverage
+dist
+coverage
+.cache
+.tmp
+
+# IDE / SO
+.vscode
+.idea
+*.swp
+.DS_Store
+
+.env*

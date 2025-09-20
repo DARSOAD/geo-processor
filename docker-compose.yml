@@ -13,3 +13,17 @@ services:
       interval: 10s
       timeout: 3s
       retries: 5
+
+
+  nestjs:
+    build:
+      context: ./apps/nestjs
+      dockerfile: Dockerfile
+    container_name: geo-processor-nestjs
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PYTHON_BASE_URL=http://fastapi:8000
+    depends_on:
+      - fastapi
