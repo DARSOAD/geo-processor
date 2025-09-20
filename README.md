@@ -97,7 +97,7 @@ Make sure you have installed:
   npm run test:e2e
 ```
 
-* **Next.js:** 
+* ## **Next.js:** #######
   I chose a Modular-by-Feature (Ducks) architecture since I needed a quick and simple startup for the application. In the future, this could be migrated to an FSD approach. This choice reinforces the SRP, and because the project is not very large, there’s little risk of breaking the OCP or DIP principles from SOLID.
 
  📂nextjs
