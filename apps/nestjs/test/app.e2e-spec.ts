@@ -1,25 +1,59 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { App } from 'supertest/types';
-import { AppModule } from './../src/app.module';
+import request from 'supertest';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication<App>;
+const BASE_URL = process.env.BASE_URL ?? 'http://localhost:3000';
+const http = request(BASE_URL);
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+describe('Geo-Processor Gateway (running instance)', () => {
+  const jitter = Number((Math.random() * 0.0001).toFixed(6));
+  const validBody = {
+    points: [
+      { lat: 0 + jitter, lng: 0 + jitter },
+      { lat: 10 + jitter, lng: 10 + jitter },
+    ],
+  };
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+  it('POST /api/python/process → MISS, then HIT, y REFRESH', async () => {
+    const miss = await http
+      .post('/api/python/process')
+      .set('Content-Type', 'application/json')
+      .send(validBody)
+      .expect(201);
+
+    expect(miss.body).toHaveProperty('fromCache', false);
+    expect(miss.body).toHaveProperty('centroid');
+    expect(miss.body).toHaveProperty('bounds');
+
+    const hit = await http
+      .post('/api/python/process')
+      .set('Content-Type', 'application/json')
+      .send(validBody)
+      .expect(201);
+
+    expect(hit.body).toHaveProperty('fromCache', true);
+    expect(hit.body).toHaveProperty('centroid');
+    expect(hit.body).toHaveProperty('bounds');
+
+    const refresh = await http
+      .post('/api/python/process?refresh=true')
+      .set('Content-Type', 'application/json')
+      .send(validBody)
+      .expect(201);
+
+    expect(refresh.body).toHaveProperty('fromCache', false);
   });
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+  it('POST /api/python/process → 400 con body inválido', async () => {
+    const invalidBody = {
+      points: [
+        { lat: 1000, lng: 0 },
+        { lat: 0, lng: 0 },
+      ],
+    };
+
+    await http
+      .post('/api/python/process')
+      .set('Content-Type', 'application/json')
+      .send(invalidBody)
+      .expect(400);
   });
 });

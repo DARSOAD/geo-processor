@@ -65,7 +65,24 @@ docker build -t geo-processor .
 
 * ## **NestJS:** #######
 
+* **NestJS structure:** For the NestJS, I chose a Tiny Gateway since it fits the requirements of the test exactly. Nothing else needs to be added—it’s a lightweight proxy, and I followed the YAGNI principle.
 
+📦src
+ ┣ 📂common
+ ┃ ┗📂filters
+ ┃   ┗ 📜http-exception.filter.ts
+ ┣ 📂python-proxy
+ ┃ ┣ 📂dto
+ ┃ ┃ ┗ 📜process.request.dto.ts
+ ┃ ┣ 📜python-proxy.controller.ts
+ ┃ ┣ 📜python-proxy.module.ts
+ ┃ ┣ 📜http.client.ts
+ ┃ ┗ 📜python-proxy.service.ts
+ ┣ 📜app.controller.spec.ts
+ ┣ 📜app.controller.ts
+ ┣ 📜app.module.ts
+ ┣ 📜app.service.ts
+ ┗ 📜main.ts
 
 
 * **Next.js:** simplicidad en la construcción del frontend y visualización de mapas.

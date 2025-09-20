@@ -17,5 +17,5 @@ COPY app ./app
 # Port IMPORTANT
 EXPOSE 8000
 
-# Comando por defecto: levantar el server
+# Server up
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
