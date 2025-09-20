@@ -91,7 +91,23 @@ docker build -t geo-processor .
   npm run test:e2e
 ```
 
-* **Next.js:** simplicidad en la construcción del frontend y visualización de mapas.
+* **Next.js:** 
+  I chose a Modular-by-Feature (Ducks) architecture since I needed a quick and simple startup for the application. In the future, this could be migrated to an FSD approach. This choice reinforces the SRP, and because the project is not very large, there’s little risk of breaking the OCP or DIP principles from SOLID.
+
+ 📂nextjs
+ ┣ 📂src
+ ┃ ┣ 📂app
+ ┃ ┃   ┗📜page.tsx
+ ┃ ┣ 📂lib
+ ┃ ┣ 📂features
+ ┃ ┣ 📂shared
+ ┃ ┗ 📂config
+
+  We created the necessary configuration for a simple HTTP Client that handles errors, applies backoff retries, and integrates with NestJS. This implementation is exposed in the lib folder, and it relies on proper configuration of the .env file for setting the URL and other communication parameters. With this approach, if in the future the endpoint changes or values such as connection retries need adjustment, these updates can be made directly in the configuration without modifying the Next.js application code itself.
+
+  An GEO feature was created to handle the process call, leveraging the previously implemented HTTP Client.
+
+  For an app of this size, I chose to use the Chakra UI library to build everything as quickly as possible, following a UI per feature approach (without a global shared yet). Once the app starts to scale and we see the same patterns repeated 2–3 times (e.g., <ErrorAlert>), the plan is to then extract them into src/shared/ui.
 
 ---
 
